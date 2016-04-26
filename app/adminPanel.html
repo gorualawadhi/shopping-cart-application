@@ -1,0 +1,46 @@
+<div class="container-fluid">
+	<form name="consoleForm" method="post">
+		<label>
+			Product Name:
+			<input type="text" name="product.titleName" ng-model="product.titleName">				
+		</label>
+		<br>
+		<label>
+			Brand Name:
+			<input type="text" name="product.brandName" ng-model="product.brandName">
+		</label>
+		<br>
+		<label>
+			Color:
+			<input type="text" name="product.productColor" ng-model="product.productColor">
+		</label>
+		<br>
+		<label>
+			Select your Image:
+			<input type="file" ng-model="product.image">
+		</label>
+		<br>	
+		<label>
+			Size:
+			<input type="text" name="product.productSize" ng-model="product.productSize">
+		</label>
+		<br>
+		<label>
+			MRP:
+			<input type="text" name="product.mrp" ng-model="product.mrp">
+		</label>
+		<br>
+		<label>
+			Discount:
+			<input type="text" name="product.discount" ng-model="product.discount">
+		</label>
+		<br>
+		<label>
+			Price:
+			<input type="text" name="product.price" ng-model="product.price">
+		</label>
+		<br>
+		<input type="submit" value="submit all details" ng-click="update(product)">
+	</form>
+	<p>{{Details}}</p>	
+</div>	

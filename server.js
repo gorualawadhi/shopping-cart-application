@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var config 	   = require('./config');
 var mongoose   = require('mongoose');
 var path 	   = require('path');
-
+var productController = require('./controllers/api/products.controller');
 mongoose.createConnection(config.database);
 
 //app.set('views', __dirname + '/views');
@@ -25,6 +25,8 @@ app.use(express.static(__dirname + '/app'));
 
 // routes
 app.use('/api/users', require('./controllers/api/users.controller'));
+
+app.use('/api/product', productController);
 
 /*app.get('/', function(req, res) {
 	console.log('dir name: ' + __dirname);

@@ -9,7 +9,27 @@
             url:'/home',
             templateUrl: 'home.html',
             controller: 'homeController'
+        })
+        .state('adminPanel', {
+          url:'/admin',
+          templateUrl: 'adminPanel.html',
+          controller: 'adminController'  
         });
+    })
+    .controller('adminController', function($scope, productService){
+        $scope.product={};
+        $scope.Details="";
+        $scope.update=function(product){
+            $scope.Details = angular.copy(product);
+
+            productService.createProduct(product)
+            .then(function(response){
+                alert("successfully added");
+                $scope.product={};
+            }, function(err){
+                alert("problem while saving the data");
+            });
+        }
     })
     .controller('mainController', function($scope,$state, $location){
         $scope.loginUserMain = true;
@@ -28,17 +48,38 @@
             $scope.registerUserMain = true;
         });
     })
-    .controller('homeController', function($scope, userService){
+    .controller('homeController', function($scope, productService){
                   
-        console.log( userService.helloWorld());
-        $scope.toggle = true;
+        function init(){
+            $scope.toggle = true;
+            productService.getProducts()
+            .then(function(response){
+                $scope.homeData = response;
+            });
+        }
+        init();
         $scope.toggleMenu = function(){
             $scope.arrow = !$scope.arrow;
             $scope.toggle = !$scope.toggle;
-        };        
-        $scope.Details="";
-        $scope.update=function(product){
-            $scope.Details = angular.copy(product);
+        };                
+    })
+    .service('productService', function($http){
+        var self = this;
+        self.getProducts =  function(){
+            return $http.get('/api/product/getdata').then(handleSuccess, handleError);
+        };
+        self.createProduct = function(product){
+            return $http.post('/api/product', product).then(handleSuccess, handleError);
+        }
+
+        // private functions
+        function handleSuccess(res) {
+            console.log("I am back at client side");
+            return res.data;
+        }
+        function handleError(err) {
+            console.log("i m in client with error");
+            return err;
         }
     })
     .controller('registerController',function($scope, userService,$state) {    
