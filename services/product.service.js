@@ -12,10 +12,10 @@ productService.getdata = getdata ;
 
 module.exports = productService;
 
-function getdata(){
+function getdata(param){
     var deferred =  Q.defer();
     
-    ProductDetail.find({}, function(err, data){
+    ProductDetail.find(param, function(err, data){
         if(err){
             console.log(err);
             deferred.reject(err);
@@ -24,7 +24,7 @@ function getdata(){
             deferred.resolve(data);
         }
     });
-    deferred.promise;
+    return deferred.promise;
 };
 
 function createProduct(productParam){

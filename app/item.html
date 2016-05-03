@@ -1,0 +1,10 @@
+<div class="full_desc_popular" ng-repeat="x in homeData" ng-class="myStyle">
+	<div ng-if="showproducts(x)">
+		<img src="app-content/apple_deal.jpeg">
+		<div class="background_desc" >
+			<h6>{{x.titleName}}</h6>
+			<p class="price price_inner">{{x.price}}</p>
+			<p class="price price_inner">{{x.mrp}}</p>
+		</div>
+	</div>
+</div>	

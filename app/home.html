@@ -1,15 +1,19 @@
 <div class="container">
 	<div class="row">
-		<div ng-click="toggleMenu()" ng-class="{'hamburger': !arrow, 'arrow-right': arrow}" class="nav-toggle">
-		    <span></span>
-		</div>
-		<ul ng-hide="toggle">
-			<li><a href="#">Home</a></li>
-			<li><a href="#">Contact Us</a></li>
-			<li><a href="#">About us</a></li>
-			<li><a ui-sref="adminPanel">Admin Panel</a></li>
-		</ul>				
+		<header-directive></header-directive>			
 	</div>	
-	<div>{{homeData[0]}}</div><br>
-	<div>{{homeData[1]}}</div>
+	<div class="">						
+		<div class="deals_header">
+			<p>Upcoming Products</p>
+			<p class="product-show">
+				<span ng-click="myStyle='gridClass'">Grid</span>
+				<span ng-click="myStyle='listClass'">List</span>
+			</p>
+		</div>
+		<brand-directive></brand-directive>
+		<home-directive></home-directive>				
+	</div>
+	<div class="footer">
+		<footer-directive></footer-directive>
+	</div>	
 </div>	

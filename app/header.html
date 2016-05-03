@@ -1,0 +1,9 @@
+<div ng-click="toggleMenu()" click-anywhere-on-doc ng-class="{'hamburger': !arrow, 'arrow-right': arrow}" class="nav-toggle">
+    <span class="menu"></span>
+</div>
+<ul ng-hide="toggle" click-anywhere-on-doc class="animate-hide">
+	<li><a href="#">Home</a></li>
+	<li ng-click="showVegs({brandName:'jjj'})"><a href="">vegetable</a></li>
+	<li><a href="#">About us</a></li>
+	<li><a ui-sref="adminPanel">Admin Panel</a></li>
+</ul>	

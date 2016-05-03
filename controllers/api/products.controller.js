@@ -5,7 +5,7 @@ var productService = require('../../services/product.service');
 
 // routes
 router.post('/', createProduct);
-router.get('/getdata', getdata);
+router.post('/getdata', getdata);
 module.exports = router;
 
 
@@ -19,7 +19,7 @@ function createProduct(req, res){
 };
 
 function getdata(req, res){
-	productService.getdata({}).then(function(response){ 
+	productService.getdata(req.body).then(function(response){ 
 		res.send(response);
 	}, function(err){
 		res.sendStatus(500);

@@ -52,21 +52,90 @@
                   
         function init(){
             $scope.toggle = true;
-            productService.getProducts()
+            productService.getProducts({})
             .then(function(response){
-                $scope.homeData = response;
+               $scope.homeData = response;
             });
         }
         init();
+
+        $scope.showVegs = function(paramObj){
+            productService.getProducts(paramObj)
+            .then(function(response){
+               $scope.homeData = response;
+            });
+        }
         $scope.toggleMenu = function(){
             $scope.arrow = !$scope.arrow;
             $scope.toggle = !$scope.toggle;
-        };                
+        };
+        $scope.filterArr=[];
+       $scope.method1 = function(var1){
+            var index = $scope.filterArr.indexOf(var1);
+            if(index<0){
+                $scope.filterArr.push(var1);    
+            }
+            else{
+                $scope.filterArr.splice(index, 1);
+            }            
+        };        
+        $scope.showproducts = function(x){            
+            if($scope.filterArr.length==0){
+                return true;
+            }
+            else{
+                for(var i = 0;i<$scope.filterArr.length;i++){
+                    if(x.brandName==$scope.filterArr[i]){                    
+                        return true;
+                    }                                
+                }
+                return false;   
+            }                      
+        }
+    })
+    .directive('clickAnywhereOnDoc', function( $document){
+        return{
+            restrict: 'A',
+            link: function(object, element, attr){
+                element.on('click', function(e){
+                    if (object.toggle == false ) object.toggle=true;
+                    if (object.arrow == true ) object.arrow=false;
+                    e.stopPropagation();
+                });
+                $document.on('click', function(){
+                    object.$apply(attr.clickAnywhereOnDoc);
+                });
+            }
+        };
+    })
+    .directive('brandDirective', function(){
+        return{
+            restrict:'E',
+            templateUrl:'brand.html'
+        }
+    })
+    .directive('homeDirective', function(){
+        return {
+            restrict: 'E',
+            templateUrl: 'item.html'            
+        };
+    })
+    .directive('headerDirective', function(){
+        return{
+            restrict: 'E',
+            templateUrl: 'header.html'
+        };
+    })
+    .directive('footerDirective', function(){
+        return{
+            restrict: 'E',
+            templateUrl: 'footer.html'
+        };
     })
     .service('productService', function($http){
         var self = this;
-        self.getProducts =  function(){
-            return $http.get('/api/product/getdata').then(handleSuccess, handleError);
+        self.getProducts =  function(paramObj){
+            return $http.post('/api/product/getdata', paramObj).then(handleSuccess, handleError);
         };
         self.createProduct = function(product){
             return $http.post('/api/product', product).then(handleSuccess, handleError);
